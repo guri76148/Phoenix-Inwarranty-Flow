@@ -9,31 +9,31 @@ on:
     - cron: 00 11 * * * # 7 pm EST
     - cron: 00 03 * * 1-5 # 11 am EST Monday to friday
 
-  jobs:
-    run-postman-tests:
-      runs-on: ubuntu-latest
+jobs:
+  run-postman-tests:
+    runs-on: ubuntu-latest
       
-      steps:
+    steps:
       
-        - name: Checkout the code
-          uses: actions/checkout@v6.0.2
+      - name: Checkout the code
+        uses: actions/checkout@v6.0.2
 
-        - name: Install Nodejs and npm
-          uses: actions/setup-node@v6.3.0
-          with:
-              node-version: '22'
+      - name: Install Nodejs and npm
+        uses: actions/setup-node@v6.3.0
+        with:
+            node-version: '22'
 
-        - name: Install newman and htmlextra globally
-          run: |
-               npm install -g newman
-               npm install -g newman-reporter-htmlextra
+      - name: Install newman and htmlextra globally
+        run: |
+              npm install -g newman
+              npm install -g newman-reporter-htmlextra
 
-        - name: Run Postman Collection with newman
-          run: |
-               newman run 'inwarranty-flow Collection.postman_collection.json' \
-               -e QA.postman_environment.json \
-               -d testdata.csv \
-               -r cli,htmlextra
+      - name: Run Postman Collection with newman
+        run: |
+              newman run 'inwarranty-flow Collection.postman_collection.json' \
+              -e QA.postman_environment.json \
+              -d testdata.csv \
+              -r cli,htmlextra
                
 
 
